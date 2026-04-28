@@ -31,6 +31,13 @@ async def read_category_by_query(category: str):
             books_to_return.append(book)
     return books_to_return
 
+@app.get("/books/by_author/")
+async def read_author_books(author:str):
+    books_to_return = []
+    for book in BOOKS:
+        if book.get('author').casefold() == author.casefold():
+            books_to_return.append(book)
+    return books_to_return
 
 @app.get("/books/{books_author}/")
 async def read_author_category_by_query(book_author:str,category:str):
@@ -40,6 +47,7 @@ async def read_author_category_by_query(book_author:str,category:str):
         book.get('category').casefold() == category.casefold():
             books_to_return.append(book)
     return books_to_return
+
 
 @app.post("/books/create_book")
 async def create_book(new_book=Body()):
